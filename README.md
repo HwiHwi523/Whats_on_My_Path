@@ -65,34 +65,34 @@
 
 - API Server (Django) - `/paths`, `keyword: 국밥`, `departureLngLat: {망우역 경도,위도}`, `destinationLngLat: {청량리역 경도, 위도}`
     
-    ![Untitled](Untitled%202.png)
+    ![Untitled](README_img/Untitled%202.png)
     
 - Web - 메인화면
     
-    ![Untitled](Untitled%203.png)
+    ![Untitled](README_img/Untitled%203.png)
     
 
 - Web - ‘출발지 검색’ 또는 ‘도착지 검색’ 누를 시 (’장소명 입력’ 하는 폼 추가)
     
-    ![Untitled](Untitled%204.png)
+    ![Untitled](README_img/Untitled%204.png)
     
 
 - Web - 출발지 또는 도착지 검색 시
     
     (특정 장소 클릭 시 해당 정보(장소명, 경도 및 위도)가 상단 폼으로 들어감, 경도 및 위도는 hidden)
     
-    ![Untitled](Untitled%205.png)
+    ![Untitled](README_img/Untitled%205.png)
     
 
 - Web - 검색 결과 1 (**`역삼역`** → **`왕십리역`**, **`국밥`**)
 (’이전’, ‘다음’ 버튼으로 다른 장소 확인 가능) `(경로 표시 아직 미구현)`
     
-    ![Untitled](Untitled%206.png)
+    ![Untitled](README_img/Untitled%206.png)
     
 
 - Web - 검색 결과 2 (`**청량리역**` → `**광화문**`, `**편의점**`)
     
-    ![Untitled](Untitled%207.png)
+    ![Untitled](README_img/Untitled%207.png)
     
 
 ---
