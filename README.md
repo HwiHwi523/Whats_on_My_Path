@@ -58,9 +58,9 @@
 
 - API Server (Django) - `/locations`, `query: 역삼역` 호출 결과
     
-    ![Untitled](Untitled.png)
+    ![Untitled](README_img/Untitled.png)
     
-    ![Untitled](Untitled%201.png)
+    ![Untitled](README_img/Untitled%201.png)
     
 
 - API Server (Django) - `/paths`, `keyword: 국밥`, `departureLngLat: {망우역 경도,위도}`, `destinationLngLat: {청량리역 경도, 위도}`
