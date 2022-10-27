@@ -17,7 +17,7 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5139b1a91afe3567ca4b94e8d5300a24"></script>
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey={KAKAO JavaScript  Key}"></script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
 <style>
