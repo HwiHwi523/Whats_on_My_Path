@@ -2,7 +2,7 @@ import requests
 from django.contrib.gis.geos import Point
 
 
-_REST_API_KEY = "99642aded3fb5aaffaca7f5f816b46fe"
+_REST_API_KEY = "KAKAO REST API Key"
 
 _HOST_LOCAL = "https://dapi.kakao.com"
 _HOST_NAVI = "https://apis-navi.kakaomobility.com"
