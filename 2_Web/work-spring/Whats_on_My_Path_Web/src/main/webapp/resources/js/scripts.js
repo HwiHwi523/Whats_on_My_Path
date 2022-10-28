@@ -66,11 +66,8 @@ searchPathBtn.addEventListener('click', function() {
 	const departureLngLat = document.getElementById('departureLngLat').value;
 	const destinationLngLat = document.getElementById('destinationLngLat').value;
 	
-	console.log(departureLngLat);
-	console.log(destinationLngLat);
-	
 	// 검색 결과 가져오고 페이저 초기화 하기// fetch()를 통해 데이터 가져오기
-	fetch("http://localhost:8000/whatsonmypath/paths" + "?keyword=" + keyword
+	fetch("http://ec2-3-38-190-202.ap-northeast-2.compute.amazonaws.com:8000/whatsonmypath/paths" + "?keyword=" + keyword
 			+ "&departureLngLat=" + departureLngLat
 			+ "&destinationLngLat=" + destinationLngLat , {
 		method: "GET",
@@ -89,10 +86,27 @@ searchPathBtn.addEventListener('click', function() {
 			</div>
 		</div>`;
 		if (data) {
-			console.log(data);
-			console.log(data.locations);
 			pointsOnPath = data.points;  // 경로 지점 데이터
 			locationsOnPath = data.locations;  // 장소 데이터
+			
+			// 경로 그리기
+			var pathsForDraw = [];
+			for (var idx = 0; idx < pointsOnPath.length; idx++) {
+				pathsForDraw.push(new kakao.maps.LatLng(pointsOnPath[idx][1], pointsOnPath[idx][0]));
+			}
+
+			var polyline = new kakao.maps.Polyline({
+				path: pathsForDraw,
+				strokeWeight: 5,
+				strokeColor: '#009900',
+				strokeOpacity: 0.7,
+				strokeStyle: 'solid'
+			});
+			polyline.setMap(map);
+			
+			// 시작 위치로 이동
+			moveFocus(departureLngLat);
+			
 			// 페이저 설정 및 초기화
 			pager = {};
 			pager.items = locationsOnPath;
@@ -126,7 +140,7 @@ function searchLocBtn(inputFormID) {
 	locationList.innerHTML = "";
 
 	// fetch()를 통해 데이터 가져오기
-	fetch("http://localhost:8000/whatsonmypath/locations" + "?query=" + locationQuery, {
+	fetch("http://ec2-3-38-190-202.ap-northeast-2.compute.amazonaws.com:8000/whatsonmypath/locations" + "?query=" + locationQuery, {
 		method: "GET",
 	})
 	.then((response) => response.json())
@@ -182,8 +196,10 @@ function selectLocation(event, inputForm) {
 // let inputLocation = document.getElementById('input-location');
 // inputLocation.innerHTML = "";
 	
-	// 마커 찍기 (함수 내부에서 해당 위치로 이동)
-	mark(lnglat);
+	// 마커 찍기
+	mark(lnglat, true);
+	// 해당 위치로 이동
+	moveFocus(lnglat);
 }
 
 /*******************************************************************************
@@ -203,7 +219,7 @@ var map = new kakao.maps.Map(container, options); // 지도 생성 및 객체 �
  * 마커 찍는 코드
  */
 var marker = null;  // 기존 마커를 지우기 위한 전역 마커
-function mark(lnglat) {
+function mark(lnglat, removable) {
 	let splitted = lnglat.split(',');
 	let lng = parseFloat(splitted[0]);
 	let lat = parseFloat(splitted[1]);
@@ -211,7 +227,7 @@ function mark(lnglat) {
 	var markerPosition = new kakao.maps.LatLng(lat, lng);
 	
 	// 기존에 생성했던 마커가 있다면 삭제하기
-	if (marker) {
+	if (marker && removable) {
 		marker.setMap(null);
 		marker = null;
 	}
@@ -221,6 +237,12 @@ function mark(lnglat) {
 	});
 	// 마커 할당
 	marker.setMap(map);
+}
+function moveFocus(lnglat) {
+	let splitted = lnglat.split(',');
+	let lng = parseFloat(splitted[0]);
+	let lat = parseFloat(splitted[1]);
+	var markerPosition = new kakao.maps.LatLng(lat, lng);
 	
 	// 지도 이동시키기 & 부드러운 이동
 	map.setCenter(markerPosition);
@@ -237,14 +259,18 @@ function bindList() {
   var pgItems = pager.pagedItems[pager.currentPage];
   $("#myList").empty();
   for(var i = 0; i < pgItems.length; i++){
-    var option = $('<a class="list-group-item list-group-item-action text-center">');
-    for( var key in pgItems[i] ){
-      option.html(
-     		"<strong><mark>" + pgItems[i].place_name + "</mark></strong><br>"
-				+ " <small>" + pgItems[i].address_name + "</small>"
-				+ " <span hidden>" + pgItems[i].x + "," + pgItems[i].y + "</span>");
-    }
-    $("#myList").append(option);
+	  // onclick : 해당 위치로 이동
+	  var option = $(`<a class="list-group-item list-group-item-action text-center" onclick=moveFocus('` + pgItems[i].x + "," + pgItems[i].y + `')>`);
+	  // 마커 찍기
+	  mark(pgItems[i].x + "," + pgItems[i].y, false);
+    
+	  for( var key in pgItems[i] ){
+		  option.html(
+				  "<strong><mark>" + pgItems[i].place_name + "</mark></strong><br>"
+			  		+ " <small>" + pgItems[i].address_name + "</small>"
+			  		+ " <span hidden>" + pgItems[i].x + "," + pgItems[i].y + "</span>");
+	  }
+	  $("#myList").append(option);
   }
 }
 function prevPage(){
