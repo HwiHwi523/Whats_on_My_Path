@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### API Keys ###
+API_KEYS.java
