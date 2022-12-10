@@ -20,13 +20,15 @@ import java.util.Map;
 public class PlaceController {
     KakaoLocalAPI kakaoLocalAPI = KakaoLocalAPI.getInstance();
 
-    @ApiOperation(value = "장소 검색", notes = "사용자가 입력한 키워드와 관련된 장소 검색하기")
+    @ApiOperation(value = "장소 검색", notes = "키워드와 관련된 장소 검색하기")
     @GetMapping("")
     private ResponseEntity<List<Place>> getPlaces(@RequestParam String keyword,
+                                                  @RequestParam(defaultValue = "10") String size,
+                                                  @RequestParam(defaultValue = "") String category_group_code,
                                                   @RequestParam(defaultValue = "") String x,
                                                   @RequestParam(defaultValue = "") String y,
                                                   @RequestParam(defaultValue = "") String radius) {
-        Map<String, Object> apiResponse = kakaoLocalAPI.searchPlaceByKeyword(keyword, x, y, radius);
+        Map<String, Object> apiResponse = kakaoLocalAPI.searchPlaceByKeyword(keyword, size, category_group_code, x, y, radius);
         return new ResponseEntity<>((List<Place>) apiResponse.get("Data"), (HttpStatus) apiResponse.get("StatusCode"));
     }
 }

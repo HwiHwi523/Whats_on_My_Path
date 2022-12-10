@@ -23,7 +23,12 @@ public class KakaoLocalAPI {
     private static final RestTemplate restTemplate = new RestTemplate();  // API 호출용
     private static final String API_KEY = API_KEYS.REST_API_KEY;  // Kakao API Key
 
-    public HashMap<String, Object> searchPlaceByKeyword(String keyword, String x, String y, String radius) {
+    public HashMap<String, Object> searchPlaceByKeyword(String keyword,
+                                                        String size,
+                                                        String category_group_code,
+                                                        String x,
+                                                        String y,
+                                                        String radius) {
         // Request Header 생성
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
@@ -32,6 +37,10 @@ public class KakaoLocalAPI {
         // keyword 파라미터로 Query 설정
         String queryURL = HOST + KEYWORD_PATH;
         queryURL += "?query=" + keyword;
+        queryURL += "&size=" + size;
+        if (!category_group_code.equals("")) {
+            queryURL += "&category_group_code=" + category_group_code;
+        }
         if (!x.equals("") && !y.equals("") && !radius.equals("")) {  // 중심지역 및 반경 정보가 주어질 시 설정
             queryURL += "&x=" + x;
             queryURL += "&y=" + y;
