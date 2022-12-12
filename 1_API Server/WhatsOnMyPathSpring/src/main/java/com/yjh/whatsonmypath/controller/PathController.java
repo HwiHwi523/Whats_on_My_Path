@@ -24,20 +24,20 @@ import java.util.Set;
 @RestController
 @RequestMapping("/paths")
 @Slf4j
-@ApiImplicitParams({
-        @ApiImplicitParam(name = "keyword", value = "검색할 키워드", dataTypeClass = String.class),
-        @ApiImplicitParam(name = "origin_x", value = "출발지 경도", dataTypeClass = String.class),
-        @ApiImplicitParam(name = "origin_y", value = "출발지 위도", dataTypeClass = String.class),
-        @ApiImplicitParam(name = "destination_x", value = "도착지 경도", dataTypeClass = String.class),
-        @ApiImplicitParam(name = "destination_y", value = "도착지 위도", dataTypeClass = String.class),
-        @ApiImplicitParam(name = "waypoint_xy", value = "경유지 경도, 위도 순서로 저장된 1차원 배열", dataTypeClass = String.class)
-})
 public class PathController {
     private static final KakaoLocalAPI kakaoLocalAPI = KakaoLocalAPI.getInstance();
     private static final KakaoMobAPI kakaoMobAPI = KakaoMobAPI.getInstance();
 
     @ApiOperation(value = "경로 & 장소 찾기", notes = "경로와 경로 상에 있는 장소 찾기")
     @GetMapping("")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "keyword", value = "검색할 키워드", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "origin_x", value = "출발지 경도", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "origin_y", value = "출발지 위도", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "destination_x", value = "도착지 경도", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "destination_y", value = "도착지 위도", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "waypoint_xy", value = "경유지 경도, 위도 순서로 저장된 1차원 배열", dataTypeClass = String.class)
+    })
     public ResponseEntity<?> getPath(@RequestParam String keyword,
                                             @RequestParam String origin_x,
                                             @RequestParam String origin_y,
