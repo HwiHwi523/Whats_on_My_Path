@@ -8,10 +8,9 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "axios": "^1.2.1",
     "bootstrap": "^5.2.2",
     "core-js": "^3.8.3",
-    "jquery": "^3.6.1",
+    "jquery": "^3.6.2",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"
@@ -29,5 +28,38 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.0.3",
     "prettier": "^2.4.1"
-  }
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended",
+      "plugin:prettier/recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {
+      "no-unused-vars": "off",
+      "no-undef": "off",
+      "no-useless-escape": "off",
+      "no-prototype-builtins": "off",
+      "no-self-assign": "off",
+      "no-cond-assign": "off",
+      "no-func-assign": "off",
+      "no-redeclare": "off",
+      "getter-return": "off",
+      "no-empty": "off",
+      "no-sparse-arrays": "off"
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
 }

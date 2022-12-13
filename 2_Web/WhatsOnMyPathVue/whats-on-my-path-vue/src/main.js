@@ -8,8 +8,8 @@ import "bootstrap";
 
 // Vensor CSS Files
 // import "@/assets/vendor/aos/aos.css";
-// import "@/assets/vendor/bootstrap-icons/bootstrap-icons.css";
-// import "@/assets/vendor/boxicons/css/boxicons.min.css";
+import "@/assets/vendor/bootstrap-icons/bootstrap-icons.css";
+import "@/assets/vendor/boxicons/css/boxicons.min.css";
 // import "@/assets/vendor/glightbox/css/glightbox.min.css";
 // import "@/assets/vendor/swiper/swiper-bundle.min.css";
 
@@ -21,7 +21,7 @@ import "@/assets/css/style.css";
 // import "@/assets/img/apple-touch-icon.png";
 
 // Google Fonts
-// import "@/assets/css/gfonts.css";
+import "@/assets/css/gfonts.css";
 
 // Vendor JS Files
 // import "@/assets/vendor/purecounter/purecounter_vanilla.js";

@@ -15,7 +15,7 @@
 
         <div class="row">
           <div class="col-lg-4">
-            <img src="@/assets/img/about.jpg" class="img-fluid" alt="" />
+            <img src="assets/img/about.jpg" class="img-fluid" alt="" />
           </div>
           <div class="col-lg-8 pt-4 pt-lg-0 content">
             <h3>Illustrator &amp; UI/UX Designer</h3>
