@@ -31,7 +31,7 @@ public class PlaceController {
             @ApiImplicitParam(name = "radius", value = "반경", dataTypeClass = String.class)
     })
     private ResponseEntity<List<Place>> getPlaces(@RequestParam String keyword,
-                                                  @RequestParam(defaultValue = "10") String size,
+                                                  @RequestParam(defaultValue = "15") String size,
                                                   @RequestParam(defaultValue = "") String category_group_code,
                                                   @RequestParam(defaultValue = "") String x,
                                                   @RequestParam(defaultValue = "") String y,
