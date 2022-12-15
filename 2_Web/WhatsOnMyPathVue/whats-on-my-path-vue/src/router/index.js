@@ -15,6 +15,11 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "@/components/AboutContent.vue"),
   },
+  {
+    path: "/findpath",
+    name: "FindPath",
+    component: () => import("@/components/FindPath/SetPlaceContent.vue"),
+  },
 ];
 
 const router = createRouter({
