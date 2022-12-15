@@ -15,6 +15,7 @@ import "@/assets/vendor/boxicons/css/boxicons.min.css";
 
 // Template Main CSS File
 import "@/assets/css/style.css";
+import "@/assets/css/form/main.css";
 
 // Favicons
 // import "@/assets/img/favicon.png";
