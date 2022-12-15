@@ -35,20 +35,6 @@ export default {
     };
 
     /**
-     * Easy event listener function
-     */
-    const on = (type, el, listener, all = false) => {
-      let selectEl = select(el, all);
-      if (selectEl) {
-        if (all) {
-          selectEl.forEach((e) => e.addEventListener(type, listener));
-        } else {
-          selectEl.addEventListener(type, listener);
-        }
-      }
-    };
-
-    /**
      * Easy on scroll event listener
      */
     const onscroll = (el, listener) => {
@@ -118,6 +104,6 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: #34b7a7;
 }
 </style>
