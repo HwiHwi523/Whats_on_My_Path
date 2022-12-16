@@ -14,7 +14,7 @@
             class="input1"
             type="text"
             name="departure"
-            v-model="departure.placeName"
+            v-model="departureName"
             placeholder="출발지"
             @click="clickInputForm"
             readonly
@@ -77,7 +77,7 @@
             class="input1"
             type="text"
             name="arrival"
-            v-model="arrival.placeName"
+            v-model="arrivalName"
             placeholder="도착지"
             @click="clickInputForm"
             readonly
@@ -114,7 +114,6 @@
               v-for="(place, index) in arrivalPlaces"
               :key="index"
               class="list-group-item list-group-item-action"
-              name="{{ index }}"
               @click="selectPlace(place, 'arrival')"
             >
               <div class="d-flex w-100 justify-content-between">
@@ -143,6 +142,7 @@
             name="keyword"
             v-model="keyword"
             placeholder="키워드 (e.g. 국밥)"
+            @keyup.enter="search"
           />
           <span class="shadow-input1"></span>
         </div>
@@ -164,10 +164,12 @@ export default {
     return {
       isDepartureOn: false, // 출발지 검색창 On / Off
       departure: "", // 출발지 장소 정보, Json
+      departureName: "", // 출발지 장소명
       departureKeyword: "", // 출발지 검색 키워드
       departurePlaces: [], // 출발지 검색 결과, Json[]
       isArrivalOn: false, // 도착지 검색창 On / Off
       arrival: "", // 도착지 장소 정보, Json
+      arrivalName: "", // 도착지 장소명
       arrivalKeyword: "", // 도착지 검색 키워드
       arrivalPlaces: [], // 도착지 검색 결과, Json[]
       keyword: "", // 음식 키워드
@@ -213,11 +215,13 @@ export default {
     selectPlace(place, whereToCall) {
       if (whereToCall == "departure") {
         this.departure = place;
+        this.departureName = "출발지 : " + place.placeName;
         this.departureKeyword = "";
         this.departurePlaces = [];
         this.isDepartureOn = false;
       } else {
         this.arrival = place;
+        this.arrivalName = "도착지 : " + place.placeName;
         this.arrivalKeyword = "";
         this.arrivalPlaces = [];
         this.isArrivalOn = false;
@@ -238,19 +242,16 @@ export default {
         return;
       }
 
-      http
-        .get("/paths", {
-          params: {
-            keyword: this.keyword,
-            origin_x: this.departure.x,
-            origin_y: this.departure.y,
-            destination_x: this.arrival.x,
-            destination_y: this.arrival.y,
-          },
-        })
-        .then((data) => {
-          console.log(data);
-        });
+      // 음식 키워드, 출발지, 도착지 정보로 쿼리 넘겨주기
+      this.searchCompleted = true;
+      let query = {
+        keyword: this.keyword,
+        origin_x: this.departure.x,
+        origin_y: this.departure.y,
+        destination_x: this.arrival.x,
+        destination_y: this.arrival.y,
+      };
+      this.$router.push({ name: "ResultPath", query: query });
     },
   },
 };
