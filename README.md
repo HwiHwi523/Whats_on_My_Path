@@ -13,96 +13,79 @@
 
 ## 🛠️ 개발 스택
 
-- Python
-- Django
-- API
-- Bootstrap v5
-- HTML, JavaScript, JSP
-
----
-
-## 구현 문서
-
-[1_API Server_Django](https://www.notion.so/1_API-Server_Django-619389b0a8734b5fae4be4304902c66d)
+- Java
+- Spring Boot
+- Vue.js
+- AWS
 
 ---
 
 ## 📊 알고리즘
 
-1. 사용자가 **`시작 위치`**, **`도착 위치`**, **`찾고자 하는 가게의 키워드`**를 입력
+1. 사용자가 `**출발지**`, `**도착지**`, `**찾고자 하는 음식의 키워드**`를 입력
 
-1. 입력 받은 시작·도착 위치로 주위의 `**장소 데이터 목록**`을 얻기
-    
-    (장소 데이터 : 장소ID, 장소명, 지번, 도로명, 경도 및 위도, …)
-    
-    (Kakao 로컬 keyword API 사용)
-    
-2. 경도와 위도로 `**시작 위치에서 도착 위치로 가는 경로**` 얻기
-    
-    (경로: 시작 위치에서 도착 위치로 가는 각 지점의 경도 위도 목록)
-    
-    (Kakao 모빌리티 길찾기 API 사용)
-    
-3. 각 지점을 500M 단위로 자르며 `**주변 가게 목록**` 구하기
-    1. 찾은 지점에서 반경 500M 거리 내의 장소들 구하기
-        
-        (위도·경도 간 거리 계산: haversine 라이브러리 사용)
-        
-        (Kakao 로컬 keyword API 사용)
-        
-4. **`구한 가게 목록`**과 **`마커로 위치를 표시한 지도(미구현)`**를 사용자에게 제공
+1. `**출발지**` ↔ `**도착지**` 경로 구하기
+
+   (카카오 모빌리티 길찾기 API)
+
+1. 경로를 이루는 각 지점을 `**1 KM**` 단위로 자르며 `**인근 음식점 목록**` 구하기
+
+   (카카오 로컬 API)
+
+1. `**구한 음식점 목록**`과 `**마커로 위치를 표시한 지도**`를 제공
 
 ---
 
 ## 📷 서비스 화면
 
-- API Server (Django) - `/locations`, `query: 역삼역` 호출 결과
-    
-    ![Untitled](README_img/Untitled.png)
-    
-    ![Untitled](README_img/Untitled%201.png)
-    
+- Home
 
-- API Server (Django) - `/paths`, `keyword: 국밥`, `departureLngLat: {망우역 경도,위도}`, `destinationLngLat: {청량리역 경도, 위도}`
-    
-    ![Untitled](README_img/Untitled%202.png)
-    
-- Web - 메인화면
-    
-    ![Untitled](README_img/Untitled%203.png)
-    
+![메인화면](README_img/001_Home.png)
 
-- Web - ‘출발지 검색’ 또는 ‘도착지 검색’ 누를 시 (’장소명 입력’ 하는 폼 추가)
-    
-    ![Untitled](README_img/Untitled%204.png)
-    
+- 길찾기 정보 (출발지, 도착지, 음식 키워드) 입력 페이지
 
-- Web - 출발지 또는 도착지 검색 시
-    
-    (특정 장소 클릭 시 해당 정보(장소명, 경도 및 위도)가 상단 폼으로 들어감, 경도 및 위도는 hidden)
-    
-    ![Untitled](README_img/Untitled%205.png)
-    
+![길찾기 페이지](README_img/002_01_FindPath.png)
 
-- Web - 검색 결과 1 (**`역삼역`** → **`왕십리역`**, **`국밥`**)
-(’이전’, ‘다음’ 버튼으로 다른 장소 확인 가능) `(경로 표시 아직 미구현)`
-    
-    ![Untitled](README_img/Untitled%206.png)
-    
+- ‘출발지’ 폼 클릭
 
-- Web - 검색 결과 2 (`**청량리역**` → `**광화문**`, `**편의점**`)
-    
-    ![Untitled](README_img/Untitled%207.png)
-    
+![출발지 폼 클릭](README_img/002_02_ClickDepartureForm.png)
+
+- 출발지 입력 및 검색 (`역삼역` 검색 및 `역삼역 2호선` 선택)
+
+![출발지 검색](README_img/002_03_SearchDeparture.png)
+
+- 도착지 입력 및 검색 (`춘천역` 검색 및 `춘천역 경춘선` 선택)
+
+![도착지 검색](README_img/002_04_SearchArrival.png)
+
+- `음식 키워드` 입력
+
+![키워드 입력](README_img/002_05_InputKeyword.png)
+
+- 검색 버튼 클릭 및 데이터 대기중
+
+![데이터 대기중](README_img/003_Searching.png)
+
+- 출발지 (역삼역) 인근 지도
+
+![출발지 인근 지도](README_img/004_01_DepartureMap.png)
+
+- 출발지와 도착지 전체 지도
+
+![전체 지도](README_img/004_02_FullMap.png)
 
 ---
 
 ## 📈 문제점 & 개선방향
 
 - 문제점
-	- 출발지 주변의 식당들만 등장
-    
+
+  1. 너무 긴 검색 시간
+
+     (경로 길이에 따라 검색 범위를 넓히거나, 고속도로 한 가운데는 제외하기)
+
 - 개선방향
-    - 사용자가 더욱 정확한 출발지와 도착지를 선택할 수 있도록
-    - 사용자가 많이 검색하는 경로, 또는 해당 경로에 위치한 가게 정보를 매번 API로 불러오지
-     않고 따로 저장해서 반환하도록 (검색 엔진 만들기?)
+  1. 음식점 마커 UI 개선하기
+  2. 음식점 목록도 같이 제공하도록 UI 개선하기
+  3. 검색 키워드 실시간 순위 제공하기
+  4. 음식점 정보를 저장하고 자체적으로 키워드 검색 알고리즘을 만들어 API 호출 줄이기
